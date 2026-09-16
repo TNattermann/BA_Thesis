@@ -1,45 +1,103 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Emotion Classification
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+> **Archived snapshot.** This is the code repository for the bachelor thesis *"Emotion Classification"*, completed November 2023 – February 2024 at Hochschule Karlsruhe (HKA), B.Sc. Data Science, in cooperation with DefineMedia GmbH.
+>
+> The code is preserved as-is for documentation and portfolio purposes. It is **not runnable**: it depended on DefineMedia's internal infrastructure (no longer accessible), and the datasets used are **not included** for copyright reasons. See the top-level repo README for details.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## Overview
 
----
+<p align="center">
+  <img src="../assets/Method.png" alt="Method Overview" width="600">
+</p>
 
-## Edit a file
+This project builds and evaluates emotion classification models for English and German news headlines. Multiple annotated datasets are combined into a fused corpus, several feature representations are extracted (lexical and embedding-based), classical and neural models are trained and evaluated, and the resulting models are transferred to a real-world dataset for final evaluation.
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Repository Structure
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+```
+emotion-classification/
+├── Preprocessing/            # Data preprocessing & feature engineering
+│   ├── data_preprocessor.py
+│   ├── feature_engineering.py
+│   ├── feature_engineering_helper.py
+│   ├── ada_embedder.py
+│   ├── ada_inference.py
+│   ├── bert_embedder.py
+│   └── fasttext_inference.py
+│
+├── ModelTraining/             # Model training, sweeps & evaluation
+│   ├── model_training.py
+│   ├── nn_training.py
+│   ├── nn_sweep.py
+│   ├── evaluation.py
+│   └── _utils/
+│       ├── model_training_helper.py
+│       ├── evaluation_helper.py
+│       └── summary_plotter.py
+│
+├── Transfer/                  # Transfer to real-world data
+│   └── transfer_real.py
+│
+├── Results/                   # Result artifacts (plots, logs, checkpoints)
+│   ├── Preprocessing/          # Dataset histograms & cosine-similarity reports
+│   ├── checkpoints/            # Saved model checkpoints
+│   ├── experiments/            # Experiment logs (base/full, DE/EN)
+│   └── img/summary_plots/      # Summary plots (performance, feature comparisons, CTR)
+│
+├── requirements.txt
+└── README.md
+```
 
----
+## Pipeline
 
-## Create a file
+**1. Preprocessing** (`Preprocessing/`)
+Raw dataset entries are cleaned and normalized (`data_preprocessor.py`), and multiple feature representations are extracted (`feature_engineering.py`, `feature_engineering_helper.py`):
+- Embedding-based features via `ada_embedder.py` / `ada_inference.py` (OpenAI Ada embeddings) and `bert_embedder.py` (BERT embeddings)
+- `fasttext_inference.py` for fastText-based inference
+- Alongside lexical/affective features (e.g. TF-IDF, NRC lexicon)
 
-Next, you’ll add a new file to this repository.
+Cosine-similarity comparisons and class-distribution histograms for the source datasets (SemEval-2007 Affective Text, GoodNews-Everyone, GerSti) are saved under `Results/Preprocessing/`.
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+**2. Model Training** (`ModelTraining/`)
+- `model_training.py` — training of classical ML models (e.g. SVM, MLP)
+- `nn_training.py` / `nn_sweep.py` — neural network training and hyperparameter sweeps
+- `evaluation.py` — model evaluation
+- `_utils/` — shared helpers for training, evaluation, and summary plotting
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+**3. Transfer** (`Transfer/`)
+- `transfer_real.py` — applies trained models to a real-world dataset to evaluate generalization beyond the original training distributions
 
----
+**4. Results** (`Results/`)
+Contains generated artifacts from the steps above: preprocessing diagnostics, experiment logs (`experiments/`, split by base/full feature sets and German/English), model checkpoints (`checkpoints/`), and summary plots (`img/summary_plots/`) covering model performance, feature comparisons, and engagement metrics (CTR, impressions) for basic vs. complete emotion sets.
 
-## Clone a repository
+## Why This Code No Longer Runs
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+The original pipeline relied on DefineMedia GmbH's internal infrastructure for data access and parts of the processing environment. This access ended with the conclusion of the thesis project, so the pipeline cannot be re-executed in its original form.
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+## Datasets
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+The following datasets were used but are **not included** in this repository, for copyright reasons:
+
+- SemEval-2007 Affective Text
+- GoodNews-Everyone
+- GerSti
+- An internal real-world dataset provided via DefineMedia GmbH
+
+The three public datasets can be obtained from their original sources if you wish to reproduce parts of this work; the DefineMedia real-world dataset is not publicly available.
+
+## Setup (for reference only)
+
+`requirements.txt` lists the Python dependencies used at the time. As noted above, the pipeline cannot currently be executed end-to-end due to the missing infrastructure and datasets, but the file is kept for reference.
+
+```
+pip install -r requirements.txt
+```
+
+## Results
+
+Result artifacts — performance summaries, feature comparisons, and dataset diagnostics — are available under `Results/`. See the manuscript in the [main repository](..) for the full discussion and analysis.
+
+## Related
+
+- Full thesis manuscript and final presentation: see the [main repository](..)
+- Contact: [LinkedIn](https://www.linkedin.com/in/torben-nattermann-a4919b211)
