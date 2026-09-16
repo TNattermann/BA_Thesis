@@ -1,6 +1,8 @@
 # Emotion Classification — Bachelor Thesis (Archive Copy)
 
-![Method Overview](assets/Method.png)
+<p align="center">
+  <img src="assets/Method.png" alt="Method Overview" width="500">
+</p>
 
 > **Note:** This repository is an **archived copy** of the original thesis repository. It is preserved here for portfolio and documentation purposes.
 >
@@ -12,7 +14,7 @@
 
 ## About the Thesis
 
-- **Title:** Emotion Classification
+- **Title:** Analyzing and predicting user behavior in online marketing
 - **Author:** Torben Nattermann
 - **Degree Program:** B.Sc. Data Science
 - **Institution:** Hochschule Karlsruhe – University of Applied Sciences (HKA)
@@ -26,9 +28,9 @@ This bachelor thesis was conducted in cooperation with **DefineMedia GmbH**, add
 ```
 .
 ├── emotion-classification/   # Original code repository (data science pipeline, models, scripts)
-├── manuscript/                # Final written thesis
-├── manuscript/                # Paper Version of thesis
-├── presentation/               # Final presentation slides
+├── BA_Thesis_67657_Analyzing_Predicting_User_Behaviour_Online_Marketing.pdf                # Final written thesis
+├── Paper_Version.pdf               # Paper Version of thesis
+├── Defense_67657.pdf              # Final presentation slides
 └── README.md
 ```
 
