@@ -1,6 +1,7 @@
 # Emotion Classification
 
-> **Archived snapshot.** This is the code repository for the bachelor thesis *"Emotion Classification"*, completed November 2023 – February 2024 at Hochschule Karlsruhe (HKA), B.Sc. Data Science, in cooperation with DefineMedia GmbH.
+> **Archived snapshot.** This is the code repository for the bachelor thesis *Analyzing and predicting user behavior in online marketing
+*, completed November 2023 – February 2024 at Hochschule Karlsruhe (HKA), B.Sc. Data Science, in cooperation with DefineMedia GmbH.
 >
 > The code is preserved as-is for documentation and portfolio purposes. It is **not runnable**: it depended on DefineMedia's internal infrastructure (no longer accessible), and the datasets used are **not included** for copyright reasons. See the top-level repo README for details.
 
